@@ -1,4 +1,4 @@
-# chatApp en C# con Conexiones TCP
+# ChatApp en C# con Conexiones TCP
 
 ## Proyecto final de la materia Programación Sobre Redes
 
@@ -8,7 +8,7 @@ Este proyecto es una aplicación de chat simple implementada en C# que utiliza c
 
 El proyecto cumple con los siguientes requisitos:
 
-1. Uso de Hilos:
+1. Uso de Hilos: 
    - Utilizamos hilos para manejar las conexiones entrantes tanto en el servidor como en los clientes. Cada cliente se maneja en un hilo separado, lo que permite la comunicación simultánea entre múltiples usuarios.
 
 2. Sistema Distribuido:
@@ -17,11 +17,17 @@ El proyecto cumple con los siguientes requisitos:
 3. Trabajo con Flujos de Redes:
    - El proyecto utiliza flujos de red (NetworkStream, StreamReader y StreamWriter) para la comunicación entre el servidor y los clientes. Esto permite la transmisión de mensajes a través de la red de manera eficiente.
 
+4. Lectura y Escritura de Archivos:
+   - Se implemento la funcionalidad de lectura y escritura de archivos para almacenar en un archivo de texto  ("chat_history.txt") para mantener un historial de las conversaciones en el servidor y cargar mensajes anteriores en los clientes.
+
+5. Uso de métodos para Administrar Hilos:
+   - Se utilizo el método de sicronización de hilos Semaphore para controlar conexiones simultáneas en el servidor, permitiendo hasta 3 conexiones activas al mismo tiempo.
+
 ## Uso
 
-1. Clona o descarga el repositorio en tu máquina local.
-2. Abre la solución en Visual Studio.
-3. Compila y ejecuta tanto el servidor como el cliente.
+1. Cloná o descargá el repositorio en tu máquina local.
+2. Abrí la solución en Visual Studio.
+3. Compila y ejecutá tanto el servidor como el cliente.
 4. El servidor debe estar en ejecución antes de que los clientes se puedan conectar.
 5. Ingresa un nombre de usuario en el cliente y presiona "Conectar" para unirte al chat.
-6. Puedes enviar mensajes al escribir en el cuadro de texto y presionar "Enviar".
+6. Podes enviar mensajes al escribir en el cuadro de texto y presionar "Enviar".
