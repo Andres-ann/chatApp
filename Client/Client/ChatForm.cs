@@ -57,6 +57,19 @@ namespace Client
             }
         }
 
+        // Método para cargar el historial del chat.
+        private void LoadChatHistory()
+        {
+            if (File.Exists("chat_history.txt"))
+            {
+                string[] chatHistory = File.ReadAllLines("chat_history.txt");
+                foreach (string message in chatHistory)
+                {
+                    AddItem(message);
+                }
+            }
+        }
+
         // Método para conectar al servidor.
         void Connect()
         {
@@ -64,6 +77,10 @@ namespace Client
             {
                 // Intenta conectarse al servidor en la dirección IP "127.0.0.1" y puerto 8000.
                 client.Connect("127.0.0.1", 8000);
+
+                // Llama al método para cargar el historial del chat
+                LoadChatHistory();
+
                 if (client.Connected)
                 {
                     // Si la conexión es exitosa, crea un hilo para escuchar los mensajes del servidor.

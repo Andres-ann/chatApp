@@ -70,9 +70,31 @@ namespace Server
             }
         }
 
+        private List<string> LoadChatHistory()
+        {
+            List<string> chatHistory = new List<string>();
+            if (File.Exists("chat_history.txt"))
+            {
+                chatHistory = File.ReadAllLines("chat_history.txt").ToList();
+            }
+            return chatHistory;
+        }
+
+        private void SaveChatHistory(List<string> chatHistory)
+        {
+            File.WriteAllLines("chat_history.txt", chatHistory);
+        }
+
         void Listen_connection()
         {
             Connection hcon = con;
+            List<string> chatHistory = LoadChatHistory();
+
+            foreach (string message in chatHistory)
+            {
+                con.streamw.WriteLine(message);
+                con.streamw.Flush();
+            }
 
             do
             {
@@ -81,6 +103,10 @@ namespace Server
                     // Lee el mensaje del cliente
                     string tmp = hcon.streamr.ReadLine();
                     Console.WriteLine(hcon.userName + ": " + tmp);
+
+                    // Guarda el mensaje en el historial
+                    chatHistory.Add(hcon.userName + ": " + tmp);
+                    SaveChatHistory(chatHistory);
 
                     // Reenvía el mensaje a todos los otros clientes conectados
                     foreach (Connection c in list)
