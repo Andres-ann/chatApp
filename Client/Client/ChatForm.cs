@@ -97,6 +97,9 @@ namespace Client
         private void ChatForm_Load(object sender, EventArgs e)
         {
             // Configura la ubicación de varios controles en posiciones fuera de la pantalla.
+            btnSend.Location = new Point(-500, 432);
+            txtMessage.Location = new Point(-500, 432);
+            listBox1.Location = new Point(-500, 25);
         }
 
         // Manejador de eventos para cuando se selecciona un elemento en la lista.
@@ -109,8 +112,18 @@ namespace Client
         private void btnConnect_Click(object sender, EventArgs e)
         {
             // Obtiene el nombre de usuario desde el cuadro de texto y llama al método `Connect` para establecer la conexión.
+            userName = txtUser.Text;
+            Connect();
 
             // Realiza una transición para mostrar controles en la interfaz de usuario.
+            Transition t = new Transition(new TransitionType_EaseInEaseOut(300));
+            t.add(lblUser, "Left", 700);
+            t.add(txtUser, "Left", 700);
+            t.add(btnConnect, "Left", 700);
+            t.add(listBox1, "Left", 25);
+            t.add(txtMessage, "Left", 25);
+            t.add(btnSend, "Left", 433);
+            t.run();
         }
 
         // Manejador de eventos para el botón "Enviar".
