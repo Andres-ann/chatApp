@@ -17,6 +17,7 @@ namespace Server
         private TcpClient client = new TcpClient();
         private IPEndPoint ipendpoint = new IPEndPoint(IPAddress.Any, 8000);
         private List<Connection> list = new List<Connection>();
+        private Semaphore connectionSemaphore; // Semaphore para controlar conexiones simultáneas
 
         Connection con;
 
@@ -30,12 +31,13 @@ namespace Server
 
         public Server_Chat()
         {
+            connectionSemaphore = new Semaphore(3, 3); // Permitir hasta 3 conexiones simultáneas
             Init();
         }
 
         public void Init()
         {
-            Console.WriteLine("Server running!");
+            Console.WriteLine("Server is running!");
 
             // Inicializa el servidor y lo pone a la escucha en el puerto 8000
             server = new TcpListener(ipendpoint);
@@ -43,6 +45,9 @@ namespace Server
 
             while (true)
             {
+                // Espera a que haya un espacio disponible en el Semaphore
+                connectionSemaphore.WaitOne();
+
                 // Espera y acepta una conexión entrante
                 client = server.AcceptTcpClient();
                 con = new Connection();
@@ -94,9 +99,13 @@ namespace Server
                     // Si la conexión se rompe (el usuario se desconecta), elimina al cliente de la lista
                     list.Remove(hcon);
                     Console.WriteLine(hcon.userName + " is disconnected");
+
+                    // Libera un espacio en el Semaphore
+                    connectionSemaphore.Release();
                     break;
                 }
             } while (true);
         }
     }
 }
+
