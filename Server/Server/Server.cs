@@ -104,8 +104,9 @@ namespace Server
                     string tmp = hcon.streamr.ReadLine();
                     Console.WriteLine(hcon.userName + ": " + tmp);
 
-                    // Guarda el mensaje en el historial
-                    chatHistory.Add(hcon.userName + ": " + tmp);
+                    // Guarda el mensaje en el historial junto con el nombre del cliente y la hora del mensaje enviado
+                    DateTime ahora = DateTime.Now;
+                    chatHistory.Add(ahora + " - " + hcon.userName + ": " + tmp);
                     SaveChatHistory(chatHistory);
 
                     // Reenvía el mensaje a todos los otros clientes conectados
@@ -113,8 +114,8 @@ namespace Server
                     {
                         try
                         {
-                            // Escribe el mensaje en el flujo de cada cliente conectado
-                            c.streamw.WriteLine(hcon.userName + ": " + tmp);
+                            // Escribe el mensaje en el flujo de cada cliente conectado y la hora actual
+                            c.streamw.WriteLine(ahora + " - " + hcon.userName + ": " + tmp);
                             c.streamw.Flush();
                         }
                         catch { }
