@@ -37,6 +37,8 @@ namespace Client
         public ChatForm()
         {
             InitializeComponent();
+            this.Text = "Chat";
+
         }
 
         // Método para escuchar los mensajes del servidor en un hilo secundario.
@@ -117,6 +119,7 @@ namespace Client
             btnSend.Location = new Point(-500, 432);
             txtMessage.Location = new Point(-500, 432);
             listBox1.Location = new Point(-500, 25);
+
         }
 
         // Manejador de eventos para cuando se selecciona un elemento en la lista.
@@ -132,8 +135,9 @@ namespace Client
             userName = txtUser.Text;
             Connect();
 
-            // Realiza una transición para mostrar controles en la interfaz de usuario.
+            // Realiza una transición para mostrar controles en la interfaz de usuario y agrega el nombre de usuario a la ventana
             Transition t = new Transition(new TransitionType_EaseInEaseOut(300));
+            this.Text = "Chat - " + userName;
             t.add(lblUser, "Left", 700);
             t.add(txtUser, "Left", 700);
             t.add(btnConnect, "Left", 700);
