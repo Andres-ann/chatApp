@@ -23,7 +23,6 @@ namespace Client
         static private StreamReader streamr;
         static private TcpClient client = new TcpClient();
         static private string userName = "unknown";
-        static private string filePath = "chat_history.txt";
 
         // Delegado para actualizar la interfaz de usuario desde un hilo secundario.
         private delegate void DaddItem(String s);
@@ -72,16 +71,17 @@ namespace Client
         }
 
         // Método para eliminar el historial del chat.
-
         private void DeleteChatHistory()
         {
-            if (File.Exists(filePath))
+
+            DialogResult dialogResult = MessageBox.Show("¿Desea eliminar el historial?", "Historial", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                using (StreamWriter sw = new StreamWriter(filePath, false))
-                {
-                    sw.Write(string.Empty);
-                }
-        }
+                streamw.WriteLine("/deletehistory");
+                streamw.Flush();
+                listBox1.Items.Clear();
+                MessageBox.Show("Historial eliminado")
+            }
 
         }
 
@@ -168,19 +168,9 @@ namespace Client
             txtMessage.Clear();
         }
 
-        private void button_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtMessage_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnDeleteHistory_Click(object sender, EventArgs e)
         {
-
+            DeleteChatHistory();
         }
     }
 }

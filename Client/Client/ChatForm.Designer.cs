@@ -45,7 +45,7 @@
             this.listBox1.Location = new System.Drawing.Point(25, 23);
             this.listBox1.Name = "listBox1";
             this.listBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.listBox1.Size = new System.Drawing.Size(490, 364);
+            this.listBox1.Size = new System.Drawing.Size(490, 324);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -81,16 +81,15 @@
             // txtMessage
             // 
             this.txtMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMessage.Location = new System.Drawing.Point(25, 404);
+            this.txtMessage.Location = new System.Drawing.Point(25, 374);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(406, 29);
             this.txtMessage.TabIndex = 5;
-            this.txtMessage.TextChanged += new System.EventHandler(this.txtMessage_TextChanged);
             // 
             // btnSend
             // 
             this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSend.Location = new System.Drawing.Point(437, 404);
+            this.btnSend.Location = new System.Drawing.Point(437, 374);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(78, 29);
             this.btnSend.TabIndex = 6;
@@ -101,7 +100,7 @@
             // btnDeleteHistory
             // 
             this.btnDeleteHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteHistory.Location = new System.Drawing.Point(25, 439);
+            this.btnDeleteHistory.Location = new System.Drawing.Point(381, 409);
             this.btnDeleteHistory.Name = "btnDeleteHistory";
             this.btnDeleteHistory.Size = new System.Drawing.Size(134, 29);
             this.btnDeleteHistory.TabIndex = 7;
