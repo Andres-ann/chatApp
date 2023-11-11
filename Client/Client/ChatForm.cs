@@ -172,6 +172,16 @@ namespace Client
         {
 
         }
+
+        private void txtMessage_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteHistory_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
