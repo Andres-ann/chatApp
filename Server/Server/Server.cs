@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Net;
 using System.Net.Configuration;
+using Server.Auth;
 
 namespace Server
 {
@@ -18,7 +19,7 @@ namespace Server
         private IPEndPoint ipendpoint = new IPEndPoint(IPAddress.Any, 8000);
         private List<Connection> list = new List<Connection>();
         private Semaphore connectionSemaphore; // Semaphore para controlar conexiones simultáneas
-
+        private AuthService _authService;
         Connection con;
 
         private struct Connection
@@ -27,6 +28,7 @@ namespace Server
             public StreamWriter streamw;     // Escritor para enviar datos al cliente
             public StreamReader streamr;     // Lector para recibir datos del cliente
             public string userName;          // Nombre de usuario del cliente
+            public string password;          // Nombre de usuario del cliente
         }
 
         public Server_Chat()
@@ -37,6 +39,8 @@ namespace Server
 
         public void Init()
         {
+            _authService = new AuthService();
+
             Console.WriteLine("Server is running!");
 
             // Inicializa el servidor y lo pone a la escucha en el puerto 8000
@@ -59,14 +63,26 @@ namespace Server
 
                 // Lee el nombre de usuario del cliente
                 con.userName = con.streamr.ReadLine();
+                con.password = con.streamr.ReadLine();
 
-                // Agrega la conexión a la lista de conexiones activas
-                list.Add(con);
-                Console.WriteLine(con.userName + " is connected");
+                try
+                {
+                    var user = _authService.ValidateUser(con.userName, con.password);
+                    // Agrega la conexión a la lista de conexiones activas
+                    list.Add(con);
+                    Console.WriteLine(con.userName + " is connected");
 
-                // Inicia un hilo para escuchar la conversación del cliente
-                Thread t = new Thread(Listen_connection);
-                t.Start();
+                    // Inicia un hilo para escuchar la conversación del cliente
+                    Thread t = new Thread(Listen_connection);
+                    t.Start();
+                }
+                catch (Exception e)
+                {
+                    // Libera un espacio en el Semaphore
+                    connectionSemaphore.Release();
+                    Console.WriteLine("error de autenticacion: " + e.Message);
+                }
+
             }
         }
 
@@ -120,7 +136,7 @@ namespace Server
                         catch { }
                     }
                 }
-                catch
+                catch(Exception e)
                 {
                     // Si la conexión se rompe (el usuario se desconecta), elimina al cliente de la lista
                     list.Remove(hcon);

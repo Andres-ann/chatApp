@@ -1,0 +1,39 @@
+[
+    {
+        "UserName": "guest",
+        "Password": "1234",
+        "Roles": [
+            {
+                "Name": "Guest",
+                "Description": "Guest",
+                "Permissions":[
+                    {
+                        "Name": "Read",
+                        "Description": "Read the chat"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "UserName": "admin",
+        "Password": "456",
+        "Roles": [
+            {
+                "Name": "Admin",
+                "Description": "Admin",
+                "Permissions":[
+                    {
+                        "Name": "Read",
+                        "Description": "Read the chat"
+                    },
+                    
+                    {
+                        "Name": "Write",
+                        "Description": "Write in the chat"
+                    }
+                ]
+            }
+        ]
+    }
+]

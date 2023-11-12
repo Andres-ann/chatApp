@@ -22,7 +22,7 @@ namespace Client
         static private StreamWriter streamw;
         static private StreamReader streamr;
         static private TcpClient client = new TcpClient();
-        static private string userName = "unknown";
+        static private string userName = "unknown"; 
 
         // Delegado para actualizar la interfaz de usuario desde un hilo secundario.
         private delegate void DaddItem(String s);
@@ -71,13 +71,13 @@ namespace Client
         }
 
         // Método para conectar al servidor.
-        void Connect()
+        void Connect(string pwd)
         {
             try
             {
                 // Intenta conectarse al servidor en la dirección IP "127.0.0.1" y puerto 8000.
                 client.Connect("127.0.0.1", 8000);
-
+                
                 // Llama al método para cargar el historial del chat
                 LoadChatHistory();
 
@@ -92,6 +92,7 @@ namespace Client
 
                     // Envía el nombre de usuario al servidor.
                     streamw.WriteLine(userName);
+                    streamw.WriteLine(pwd);
                     streamw.Flush();
 
                     // Inicia el hilo de escucha.
@@ -130,7 +131,10 @@ namespace Client
         {
             // Obtiene el nombre de usuario desde el cuadro de texto y llama al método `Connect` para establecer la conexión.
             userName = txtUser.Text;
-            Connect();
+
+            string pwd = textPwd.Text;
+
+            Connect(pwd);
 
             // Realiza una transición para mostrar controles en la interfaz de usuario.
             Transition t = new Transition(new TransitionType_EaseInEaseOut(300));
