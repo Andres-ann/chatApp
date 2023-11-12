@@ -35,6 +35,7 @@
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.btnDeleteHistory = new System.Windows.Forms.Button();
+            this.btnDisconnect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -108,11 +109,23 @@
             this.btnDeleteHistory.UseVisualStyleBackColor = true;
             this.btnDeleteHistory.Click += new System.EventHandler(this.btnDeleteHistory_Click);
             // 
+            // btnDisconnect
+            // 
+            this.btnDisconnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDisconnect.Location = new System.Drawing.Point(25, 520);
+            this.btnDisconnect.Name = "btnDisconnect";
+            this.btnDisconnect.Size = new System.Drawing.Size(102, 29);
+            this.btnDisconnect.TabIndex = 8;
+            this.btnDisconnect.Text = "Desconectar";
+            this.btnDisconnect.UseVisualStyleBackColor = true;
+            this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(540, 561);
+            this.Controls.Add(this.btnDisconnect);
             this.Controls.Add(this.btnDeleteHistory);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtMessage);
@@ -139,5 +152,6 @@
         private System.Windows.Forms.TextBox txtMessage;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Button btnDeleteHistory;
+        private System.Windows.Forms.Button btnDisconnect;
     }
 }

@@ -27,6 +27,8 @@ namespace Client
         // Delegado para actualizar la interfaz de usuario desde un hilo secundario.
         private delegate void DaddItem(String s);
 
+        private static bool isDisconnecting = false;
+
         // Método para agregar elementos a la lista (ListBox) en la interfaz de usuario.
         private void AddItem(String s)
         {
@@ -50,10 +52,22 @@ namespace Client
                     // Invoca el método `AddItem` en el hilo principal para actualizar la lista.
                     this.Invoke(new DaddItem(AddItem), streamr.ReadLine());
                 }
+                catch (IOException)
+                {
+                    // Ignora la excepción cuando se está desconectando intencionalmente.
+                    if (!isDisconnecting)
+                    {
+                        MessageBox.Show("Se ha desconectado correctamente");
+                        Application.Exit();
+                    }
+                }
                 catch
                 {
-                    MessageBox.Show("No se pudo conectar al servidor");
-                    Application.Exit();
+                    if (!isDisconnecting)
+                    {
+                        MessageBox.Show("No se pudo conectar al servidor");
+                        Application.Exit();
+                    }
                 }
             }
         }
@@ -127,6 +141,41 @@ namespace Client
             }
         }
 
+        // Método para desconectar del servidor cerrando los recursos asociados.
+        private void Disconnect()
+        {
+            try
+            {
+                if (client != null && client.Connected)
+                {
+                    isDisconnecting = true;
+
+                    client.Close();
+                    streamw.Close();
+                    streamr.Close();
+                    stream.Close();
+
+
+                    Console.WriteLine("Desconectado del servidor");
+
+                }
+                else
+                {
+                    MessageBox.Show("No hay una conexión activa para desconectar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al desconectar: " + ex.Message);
+                MessageBox.Show("Error al desconectar: " + ex.Message);
+            }
+
+            finally
+            {
+                isDisconnecting = false; // Restablece el indicador después de la desconexión.
+            }
+        }
+
         // Método que se ejecuta cuando se carga el formulario.
         private void ChatForm_Load(object sender, EventArgs e)
         {
@@ -176,6 +225,17 @@ namespace Client
         private void btnDeleteHistory_Click(object sender, EventArgs e)
         {
             DeleteChatHistory();
+        }
+
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            Disconnect();
+        }
+
+        //Evento para desconectar cuando el formulario se cierra.
+        private void ChatForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Disconnect();
         }
     }
 }
