@@ -27,6 +27,8 @@ namespace Client
         // Delegado para actualizar la interfaz de usuario desde un hilo secundario.
         private delegate void DaddItem(String s);
 
+        private static bool isDisconnecting = false;
+
         // Método para agregar elementos a la lista (ListBox) en la interfaz de usuario.
         private void AddItem(String s)
         {
@@ -42,17 +44,29 @@ namespace Client
         // Método para escuchar los mensajes del servidor en un hilo secundario.
         public void Listen()
         {
-            while (client.Connected)
+            while (client.Connected && !isDisconnecting)
             {
                 try
                 {
                     // Invoca el método `AddItem` en el hilo principal para actualizar la lista.
                     this.Invoke(new DaddItem(AddItem), streamr.ReadLine());
                 }
+                catch (IOException)
+                {
+                    // Ignora la excepción cuando se está desconectando intencionalmente.
+                    if (!isDisconnecting)
+                    {
+                        MessageBox.Show("Se ha desconectado correctamente");
+                        Application.Exit();
+                    }
+                }
                 catch
                 {
-                    MessageBox.Show("No se pudo conectar al servidor");
-                    Application.Exit();
+                    if (!isDisconnecting)
+                    {
+                        MessageBox.Show("No se pudo conectar al servidor");
+                        Application.Exit();
+                    }
                 }
             }
         }
@@ -94,6 +108,8 @@ namespace Client
                     streamw.WriteLine(userName);
                     streamw.Flush();
 
+                    btnDisconnect.Enabled = true;
+
                     // Inicia el hilo de escucha.
                     Thread t = new Thread(Listen);
                     t.Start();
@@ -103,11 +119,51 @@ namespace Client
                     MessageBox.Show("Servidor no disponible");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Servidor no disponible");
                 Application.Exit();
             }
+        }
+        // Método para desconectar del servidor cerrando los recursos asociados.
+        private void Disconnect()
+        {
+            try
+            {
+                if (client != null && client.Connected)
+                {
+                    isDisconnecting = true;
+
+                    client.Close();
+                    streamw.Close();
+                    streamr.Close();
+                    stream.Close();
+
+
+                    Console.WriteLine("Desconectado del servidor");
+                    
+                }
+                else
+                {
+                    MessageBox.Show("No hay una conexión activa para desconectar.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al desconectar: " + ex.Message);
+                MessageBox.Show("Error al desconectar: " + ex.Message);
+            }
+
+            finally
+            {
+                isDisconnecting = false; // Restablece el indicador después de la desconexión.
+            }
+        }
+
+        // Manejador de eventos para el botón de "Desconectar".
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            Disconnect();
         }
 
         // Método que se ejecuta cuando se carga el formulario.
@@ -151,6 +207,12 @@ namespace Client
             streamw.Flush();
             // Borra el cuadro de texto de mensaje.
             txtMessage.Clear();
+        }
+
+        //Evento para desconectar cuando el formulario se cierra.
+        private void ChatForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Disconnect();
         }
     }
 }
