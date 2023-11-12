@@ -34,6 +34,7 @@
             this.txtUser = new System.Windows.Forms.TextBox();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
+            this.btnDeleteHistory = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -44,7 +45,7 @@
             this.listBox1.Location = new System.Drawing.Point(25, 23);
             this.listBox1.Name = "listBox1";
             this.listBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.listBox1.Size = new System.Drawing.Size(490, 384);
+            this.listBox1.Size = new System.Drawing.Size(490, 324);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -80,7 +81,7 @@
             // txtMessage
             // 
             this.txtMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMessage.Location = new System.Drawing.Point(25, 432);
+            this.txtMessage.Location = new System.Drawing.Point(25, 374);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(406, 29);
             this.txtMessage.TabIndex = 5;
@@ -88,7 +89,7 @@
             // btnSend
             // 
             this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSend.Location = new System.Drawing.Point(437, 433);
+            this.btnSend.Location = new System.Drawing.Point(437, 374);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(78, 29);
             this.btnSend.TabIndex = 6;
@@ -96,17 +97,31 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
+            // btnDeleteHistory
+            // 
+            this.btnDeleteHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteHistory.Location = new System.Drawing.Point(381, 409);
+            this.btnDeleteHistory.Name = "btnDeleteHistory";
+            this.btnDeleteHistory.Size = new System.Drawing.Size(134, 29);
+            this.btnDeleteHistory.TabIndex = 7;
+            this.btnDeleteHistory.Text = "Elminar historial";
+            this.btnDeleteHistory.UseVisualStyleBackColor = true;
+            this.btnDeleteHistory.Click += new System.EventHandler(this.btnDeleteHistory_Click);
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 485);
+            this.ClientSize = new System.Drawing.Size(540, 561);
+            this.Controls.Add(this.btnDeleteHistory);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.lblUser);
             this.Controls.Add(this.listBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ChatForm";
             this.Text = "ChatForm";
             this.Load += new System.EventHandler(this.ChatForm_Load);
@@ -123,5 +138,6 @@
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.TextBox txtMessage;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Button btnDeleteHistory;
     }
 }

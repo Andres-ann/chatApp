@@ -37,6 +37,7 @@ namespace Client
         public ChatForm()
         {
             InitializeComponent();
+            this.Text = "Chat";
         }
 
         // Método para escuchar los mensajes del servidor en un hilo secundario.
@@ -70,6 +71,21 @@ namespace Client
             }
         }
 
+        // Método para eliminar el historial del chat.
+        private void DeleteChatHistory()
+        {
+
+            DialogResult dialogResult = MessageBox.Show("¿Desea eliminar el historial?", "Historial", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                streamw.WriteLine("/deletehistory");
+                streamw.Flush();
+                listBox1.Items.Clear();
+                MessageBox.Show("Historial eliminado");
+            }
+
+        }
+
         // Método para conectar al servidor.
         void Connect()
         {
@@ -97,6 +113,7 @@ namespace Client
                     // Inicia el hilo de escucha.
                     Thread t = new Thread(Listen);
                     t.Start();
+
                 }
                 else
                 {
@@ -117,6 +134,7 @@ namespace Client
             btnSend.Location = new Point(-500, 432);
             txtMessage.Location = new Point(-500, 432);
             listBox1.Location = new Point(-500, 25);
+            btnDeleteHistory.Location = new Point(-800, 482);
         }
 
         // Manejador de eventos para cuando se selecciona un elemento en la lista.
@@ -134,12 +152,14 @@ namespace Client
 
             // Realiza una transición para mostrar controles en la interfaz de usuario.
             Transition t = new Transition(new TransitionType_EaseInEaseOut(300));
+            this.Text = "Chat - "+userName;
             t.add(lblUser, "Left", 700);
             t.add(txtUser, "Left", 700);
             t.add(btnConnect, "Left", 700);
             t.add(listBox1, "Left", 25);
             t.add(txtMessage, "Left", 25);
             t.add(btnSend, "Left", 433);
+            t.add(btnDeleteHistory, "Left", 378);
             t.run();
         }
 
@@ -151,6 +171,11 @@ namespace Client
             streamw.Flush();
             // Borra el cuadro de texto de mensaje.
             txtMessage.Clear();
+        }
+
+        private void btnDeleteHistory_Click(object sender, EventArgs e)
+        {
+            DeleteChatHistory();
         }
     }
 }

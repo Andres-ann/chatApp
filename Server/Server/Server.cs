@@ -100,24 +100,48 @@ namespace Server
             {
                 try
                 {
-                    // Lee el mensaje del cliente
+                    // Lee la solicitud
                     string tmp = hcon.streamr.ReadLine();
-                    Console.WriteLine(hcon.userName + ": " + tmp);
 
-                    // Guarda el mensaje en el historial
-                    chatHistory.Add(hcon.userName + ": " + tmp);
-                    SaveChatHistory(chatHistory);
-
-                    // Reenvía el mensaje a todos los otros clientes conectados
-                    foreach (Connection c in list)
+                    // Verificamos si se trata de un pedido de eliminación de historial
+                    if (tmp == "/deletehistory")
                     {
-                        try
+                        
+                        chatHistory.Clear();
+                        SaveChatHistory(chatHistory);
+
+                        // Envía un mensaje a todos los clientes para notificar el borrado
+                        foreach (Connection c in list)
                         {
-                            // Escribe el mensaje en el flujo de cada cliente conectado
-                            c.streamw.WriteLine(hcon.userName + ": " + tmp);
-                            c.streamw.Flush();
+                            try
+                            {
+                                c.streamw.WriteLine("El historial fue eliminado");
+                                c.streamw.Flush();
+                            }
+                            catch { }
                         }
-                        catch { }
+                    }
+                    else
+                    {
+                        //Si es un mensaje del cliente
+                        DateTime ahora = DateTime.Now;
+                        Console.WriteLine(ahora + " - " + hcon.userName + ": " + tmp);
+
+                        // Guarda el mensaje en el historial
+                        chatHistory.Add(ahora + " - " + hcon.userName + ": " + tmp);
+                        SaveChatHistory(chatHistory);
+
+                        // Reenvía el mensaje a todos los otros clientes conectados
+                        foreach (Connection c in list)
+                        {
+                            try
+                            {
+                                // Escribe el mensaje en el flujo de cada cliente conectado
+                                c.streamw.WriteLine(ahora + " - " + hcon.userName + ": " + tmp);
+                                c.streamw.Flush();
+                            }
+                            catch { }
+                        }
                     }
                 }
                 catch
