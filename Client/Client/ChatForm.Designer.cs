@@ -120,6 +120,7 @@
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.lblUser);
             this.Controls.Add(this.listBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ChatForm";
             this.Text = "ChatForm";
