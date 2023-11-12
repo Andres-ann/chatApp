@@ -124,10 +124,11 @@ namespace Server
                     else
                     {
                         //Si es un mensaje del cliente
-                        Console.WriteLine(hcon.userName + ": " + tmp);
+                        DateTime ahora = DateTime.Now;
+                        Console.WriteLine(ahora + " - " + hcon.userName + ": " + tmp);
 
                         // Guarda el mensaje en el historial
-                        chatHistory.Add(hcon.userName + ": " + tmp);
+                        chatHistory.Add(ahora + " - " + hcon.userName + ": " + tmp);
                         SaveChatHistory(chatHistory);
 
                         // Reenvía el mensaje a todos los otros clientes conectados
@@ -136,7 +137,7 @@ namespace Server
                             try
                             {
                                 // Escribe el mensaje en el flujo de cada cliente conectado
-                                c.streamw.WriteLine(hcon.userName + ": " + tmp);
+                                c.streamw.WriteLine(ahora + " - " + hcon.userName + ": " + tmp);
                                 c.streamw.Flush();
                             }
                             catch { }
