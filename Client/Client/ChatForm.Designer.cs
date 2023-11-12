@@ -112,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 485);
+            this.ClientSize = new System.Drawing.Size(540, 561);
             this.Controls.Add(this.btnDeleteHistory);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtMessage);
@@ -120,6 +120,7 @@
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.lblUser);
             this.Controls.Add(this.listBox1);
+            this.MaximizeBox = false;
             this.Name = "ChatForm";
             this.Text = "ChatForm";
             this.Load += new System.EventHandler(this.ChatForm_Load);

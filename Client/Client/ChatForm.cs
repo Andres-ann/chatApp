@@ -80,7 +80,7 @@ namespace Client
                 streamw.WriteLine("/deletehistory");
                 streamw.Flush();
                 listBox1.Items.Clear();
-                MessageBox.Show("Historial eliminado")
+                MessageBox.Show("Historial eliminado");
             }
 
         }
@@ -112,6 +112,7 @@ namespace Client
                     // Inicia el hilo de escucha.
                     Thread t = new Thread(Listen);
                     t.Start();
+
                 }
                 else
                 {
@@ -132,6 +133,7 @@ namespace Client
             btnSend.Location = new Point(-500, 432);
             txtMessage.Location = new Point(-500, 432);
             listBox1.Location = new Point(-500, 25);
+            btnDeleteHistory.Location = new Point(-800, 482);
         }
 
         // Manejador de eventos para cuando se selecciona un elemento en la lista.
@@ -155,6 +157,7 @@ namespace Client
             t.add(listBox1, "Left", 25);
             t.add(txtMessage, "Left", 25);
             t.add(btnSend, "Left", 433);
+            t.add(btnDeleteHistory, "Left", 378);
             t.run();
         }
 
