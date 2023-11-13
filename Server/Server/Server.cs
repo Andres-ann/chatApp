@@ -86,7 +86,7 @@ namespace Server
                     con.streamw.WriteLine("error loggedIn");
                     con.streamw.Flush();
                     list.Remove(con);
-                    //connectionSemaphore.Release();
+                    //connectionSemaphore.Release();    
                     continue;
                 }
 

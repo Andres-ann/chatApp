@@ -218,6 +218,7 @@ namespace Client
 
             if (await Connect(pwd))
             {
+                MessageBox.Show("Usuario conectado");
                 // Realiza una transición para mostrar controles en la interfaz de usuario.
                 Transition t = new Transition(new TransitionType_EaseInEaseOut(300));
                 this.Text = "Chat - " + userName;
@@ -225,6 +226,7 @@ namespace Client
                 t.add(txtUser, "Left", 700);
                 t.add(lblUser, "Left", 700);
                 t.add(label1, "Left", 700);
+                t.add(textPwd, "Left", 700);
                 t.add(btnConnect, "Left", 700);
 
 
