@@ -16,6 +16,38 @@
         ]
     },
     {
+        "UserName": "guest2",
+        "Password": "1234",
+        "Roles": [
+            {
+                "Name": "Guest",
+                "Description": "Guest",
+                "Permissions":[
+                    {
+                        "Name": "Read",
+                        "Description": "Read the chat"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "UserName": "guest3",
+        "Password": "1234",
+        "Roles": [
+            {
+                "Name": "Guest",
+                "Description": "Guest",
+                "Permissions":[
+                    {
+                        "Name": "Read",
+                        "Description": "Read the chat"
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "UserName": "admin",
         "Password": "456",
         "Roles": [
