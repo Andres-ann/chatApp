@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Net.Sockets;
 using System.IO;
 using System.Net;
-using System.Net.Configuration;
+
 
 namespace Server
 {
@@ -26,7 +24,7 @@ namespace Server
             public NetworkStream stream;    // Flujo de red para comunicarse con el cliente
             public StreamWriter streamw;     // Escritor para enviar datos al cliente
             public StreamReader streamr;     // Lector para recibir datos del cliente
-            public string userName;          // Nombre de usuario del cliente
+            public string userName;          
         }
 
         public Server_Chat()
@@ -100,7 +98,7 @@ namespace Server
             {
                 try
                 {
-                    // Lee la solicitud
+                    // Lee la solicitud del cliente
                     string tmp = hcon.streamr.ReadLine();
 
                     // Verificamos si se trata de un pedido de eliminación de historial
