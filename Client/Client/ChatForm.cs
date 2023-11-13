@@ -124,6 +124,8 @@ namespace Client
                     streamw.WriteLine(userName);
                     streamw.Flush();
 
+                    btnDisconnect.Enabled = true;
+
                     // Inicia el hilo de escucha.
                     Thread t = new Thread(Listen);
                     t.Start();

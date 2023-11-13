@@ -118,6 +118,7 @@
             this.btnDisconnect.TabIndex = 8;
             this.btnDisconnect.Text = "Desconectar";
             this.btnDisconnect.UseVisualStyleBackColor = true;
+            this.btnDisconnect.Enabled = false;
             this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
             // 
             // ChatForm
