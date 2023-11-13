@@ -99,14 +99,17 @@ namespace Client
             }
 
         }
-
+        
         // Método para conectar al servidor.
-        void Connect(string pwd)
+        async Task<bool> Connect(string pwd)
         {
             try
             {
-                // Intenta conectarse al servidor en la dirección IP "127.0.0.1" y puerto 8000.
-                client.Connect("127.0.0.1", 8000);
+                if (!client.Connected)
+                {
+                    // Intenta conectarse al servidor en la dirección IP "127.0.0.1" y puerto 8000.
+                    client.Connect("127.0.0.1", 8000);
+                }
                 
                 // Llama al método para cargar el historial del chat
                 LoadChatHistory();
@@ -125,14 +128,25 @@ namespace Client
                     streamw.WriteLine(pwd);
                     streamw.Flush();
 
-                    // Inicia el hilo de escucha.
-                    Thread t = new Thread(Listen);
-                    t.Start();
+                    string loggedIn = await streamr.ReadLineAsync();
+
+                    if(loggedIn != null & loggedIn == "loggedIn")
+                    {
+                        // Inicia el hilo de escucha.
+                        Thread t = new Thread(Listen);
+                        t.Start();
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuario/contraseña incorrectos");
+                    }
 
                 }
                 else
                 {
                     MessageBox.Show("Servidor no disponible");
+
                 }
             }
             catch (Exception ex)
@@ -140,6 +154,7 @@ namespace Client
                 MessageBox.Show("Servidor no disponible");
                 Application.Exit();
             }
+            return false;
         }
 
         // Método para desconectar del servidor cerrando los recursos asociados.
@@ -194,26 +209,37 @@ namespace Client
         }
 
         // Manejador de eventos para el botón "Conectar".
-        private void btnConnect_Click(object sender, EventArgs e)
+        private async void btnConnect_Click(object sender, EventArgs e)
         {
             // Obtiene el nombre de usuario desde el cuadro de texto y llama al método `Connect` para establecer la conexión.
             userName = txtUser.Text;
 
             string pwd = textPwd.Text;
 
-            Connect(pwd);
+            if (await Connect(pwd))
+            {
+                // Realiza una transición para mostrar controles en la interfaz de usuario.
+                Transition t = new Transition(new TransitionType_EaseInEaseOut(300));
+                this.Text = "Chat - " + userName;
+                t.add(lblUser, "Left", 700);
+                t.add(txtUser, "Left", 700);
+                t.add(lblUser, "Left", 700);
+                t.add(label1, "Left", 700);
+                t.add(btnConnect, "Left", 700);
 
-            // Realiza una transición para mostrar controles en la interfaz de usuario.
-            Transition t = new Transition(new TransitionType_EaseInEaseOut(300));
-            this.Text = "Chat - "+userName;
-            t.add(lblUser, "Left", 700);
-            t.add(txtUser, "Left", 700);
-            t.add(btnConnect, "Left", 700);
-            t.add(listBox1, "Left", 25);
-            t.add(txtMessage, "Left", 25);
-            t.add(btnSend, "Left", 433);
-            t.add(btnDeleteHistory, "Left", 378);
-            t.run();
+
+                t.add(listBox1, "Left", 25);
+                t.add(txtMessage, "Left", 25);
+                t.add(btnSend, "Left", 433);
+                t.add(btnDeleteHistory, "Left", 378);
+                t.run();
+            }
+            else
+            {
+                txtUser.Text= "";
+                textPwd.Text = "";
+            }
+
         }
 
         // Manejador de eventos para el botón "Enviar".
@@ -240,6 +266,11 @@ namespace Client
         private void ChatForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Disconnect();
+        }
+
+        private void txtUser_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

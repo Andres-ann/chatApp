@@ -9,6 +9,7 @@ using System.IO;
 using System.Net;
 using System.Net.Configuration;
 using Server.Auth;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Server
 {
@@ -72,15 +73,21 @@ namespace Server
                     list.Add(con);
                     Console.WriteLine(con.userName + " is connected");
 
+                    con.streamw.WriteLine("loggedIn");
+                    con.streamw.Flush();
+
                     // Inicia un hilo para escuchar la conversación del cliente
                     Thread t = new Thread(Listen_connection);
                     t.Start();
                 }
                 catch (Exception e)
                 {
-                    // Libera un espacio en el Semaphore
-                    connectionSemaphore.Release();
                     Console.WriteLine("error de autenticacion: " + e.Message);
+                    con.streamw.WriteLine("error loggedIn");
+                    con.streamw.Flush();
+                    list.Remove(con);
+                    //connectionSemaphore.Release();
+                    continue;
                 }
 
             }

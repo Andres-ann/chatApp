@@ -80,6 +80,7 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(257, 29);
             this.txtUser.TabIndex = 4;
+            this.txtUser.TextChanged += new System.EventHandler(this.txtUser_TextChanged);
             // 
             // txtMessage
             // 
@@ -122,11 +123,11 @@
             this.btnDisconnect.UseVisualStyleBackColor = true;
             this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
             // 
-            // textBox1
+            // textPwd
             // 
             this.textPwd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textPwd.Location = new System.Drawing.Point(153, 244);
-            this.textPwd.Name = "textBox1";
+            this.textPwd.Name = "textPwd";
             this.textPwd.PasswordChar = '*';
             this.textPwd.Size = new System.Drawing.Size(257, 29);
             this.textPwd.TabIndex = 8;
