@@ -16,7 +16,7 @@
         ]
     },
     {
-        "UserName": "guest2",
+        "UserName": "lau",
         "Password": "1234",
         "Roles": [
             {
@@ -32,7 +32,71 @@
         ]
     },
     {
-        "UserName": "guest3",
+        "UserName": "clau",
+        "Password": "1234",
+        "Roles": [
+            {
+                "Name": "Guest",
+                "Description": "Guest",
+                "Permissions":[
+                    {
+                        "Name": "Read",
+                        "Description": "Read the chat"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "UserName": "fer",
+        "Password": "1234",
+        "Roles": [
+            {
+                "Name": "Guest",
+                "Description": "Guest",
+                "Permissions":[
+                    {
+                        "Name": "Read",
+                        "Description": "Read the chat"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "UserName": "andres",
+        "Password": "1234",
+        "Roles": [
+            {
+                "Name": "Guest",
+                "Description": "Guest",
+                "Permissions":[
+                    {
+                        "Name": "Read",
+                        "Description": "Read the chat"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "UserName": "gonza",
+        "Password": "1234",
+        "Roles": [
+            {
+                "Name": "Guest",
+                "Description": "Guest",
+                "Permissions":[
+                    {
+                        "Name": "Read",
+                        "Description": "Read the chat"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "UserName": "facu",
         "Password": "1234",
         "Roles": [
             {

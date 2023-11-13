@@ -32,6 +32,10 @@ namespace Client
         // Método para agregar elementos a la lista (ListBox) en la interfaz de usuario.
         private void AddItem(String s)
         {
+            if(s == "El historial fue eliminado")
+            {
+                listBox1.Items.Clear();
+            }
             listBox1.Items.Add(s);
         }
 
