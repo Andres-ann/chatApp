@@ -1,13 +1,6 @@
 ﻿    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
     using System.Drawing;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
-
     using System.Threading;
     using System.Net.Sockets;
     using System.IO;
@@ -17,7 +10,7 @@
     {
         public partial class ChatForm : Form
         {
-            // Declaración de variables y objetos estáticos utilizados en toda la clase.
+            
             static private NetworkStream stream;
             static private StreamWriter streamw;
             static private StreamReader streamr;
@@ -30,13 +23,12 @@
 
             private static bool isDisconnecting = false;
 
-            // Método para agregar elementos a la lista (ListBox) en la interfaz de usuario.
+            // Método para agregar elementos a la lista en la interfaz de usuario.
             private void AddItem(String s)
             {
                 listBox1.Items.Add(s);
             }
-
-            // Constructor de la clase `ChatForm`.
+           
             public ChatForm()
             {
                 InitializeComponent();
@@ -72,8 +64,7 @@
                     }
                 }
             }
-
-            // Método para cargar el historial del chat.
+       
             private void LoadChatHistory()
             {
                 if (File.Exists("chat_history.txt"))
@@ -86,7 +77,6 @@
                 }
             }
 
-            // Método para eliminar el historial del chat.
             private void DeleteChatHistory()
             {
 
@@ -108,8 +98,7 @@
                 {
                     // Intenta conectarse al servidor en la dirección IP "127.0.0.1" y puerto 8000.
                     client.Connect("127.0.0.1", 8000);
-
-                    // Llama al método para cargar el historial del chat
+                    
                     LoadChatHistory();
 
                     if (client.Connected)
@@ -137,14 +126,14 @@
                         MessageBox.Show("Servidor no disponible");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("Servidor no disponible");
                     Application.Exit();
                 }
             }
 
-            // Método para desconectar del servidor cerrando los recursos asociados.
+            // Método para desconectar del servidor.
             private void Disconnect()
             {
                 try
@@ -182,8 +171,7 @@
                 }
             }
 
-
-            // Método que se ejecuta cuando se carga el formulario.
+         
             private void ChatForm_Load(object sender, EventArgs e)
             {
                 // Configura la ubicación de varios controles en posiciones fuera de la pantalla.
@@ -193,13 +181,6 @@
                 btnDeleteHistory.Location = new Point(-800, 482);
             }
 
-            // Manejador de eventos para cuando se selecciona un elemento en la lista.
-            private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-            {
-                // No hay código específico en este manejador de eventos.
-            }
-
-            // Manejador de eventos para el botón "Conectar".
             private void btnConnect_Click(object sender, EventArgs e)
             {
                 // Obtiene el nombre de usuario desde el cuadro de texto y llama al método `Connect` para establecer la conexión.
@@ -234,7 +215,6 @@
 
             }
 
-            // Manejador de eventos para el botón "Enviar".
             private void btnSend_Click(object sender, EventArgs e)
             {
                 // Lee el texto del cuadro de texto de mensaje y lo envía al servidor a través del flujo de escritura.
@@ -254,7 +234,6 @@
                 Disconnect();
             }
 
-            //Evento para desconectar cuando el formulario se cierra.
             private void ChatForm_FormClosing(object sender, FormClosingEventArgs e)
             {
                 Disconnect();
