@@ -150,16 +150,20 @@ namespace Client
             {
                 if (client != null && client.Connected)
                 {
-                    isDisconnecting = true;
+                    
+                    DialogResult dialogResult = MessageBox.Show("¿Desea desconectarse?", "Desconectar", MessageBoxButtons.YesNo);
 
-                    client.Close();
-                    streamw.Close();
-                    streamr.Close();
-                    stream.Close();
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        isDisconnecting = true;
 
+                        client.Close();
+                        streamw.Close();
+                        streamr.Close();
+                        stream.Close();
 
-                    Console.WriteLine("Desconectado del servidor");
-
+                        Console.WriteLine("Desconectado del servidor");
+                    }
                 }
                 else
                 {
@@ -171,12 +175,12 @@ namespace Client
                 Console.WriteLine("Error al desconectar: " + ex.Message);
                 MessageBox.Show("Error al desconectar: " + ex.Message);
             }
-
             finally
             {
                 isDisconnecting = false; // Restablece el indicador después de la desconexión.
             }
         }
+
 
         // Método que se ejecuta cuando se carga el formulario.
         private void ChatForm_Load(object sender, EventArgs e)
