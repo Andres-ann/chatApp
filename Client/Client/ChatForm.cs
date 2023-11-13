@@ -33,6 +33,7 @@
             {
                 InitializeComponent();
                 this.Text = "Chat";
+                btnDisconnect.Visible = false;
             }
 
             // Método para escuchar los mensajes del servidor en un hilo secundario.
@@ -114,7 +115,6 @@
                         streamw.WriteLine(userName);
                         streamw.Flush();
 
-                        btnDisconnect.Enabled = true;
 
                         // Inicia el hilo de escucha.
                         Thread t = new Thread(Listen);
@@ -197,8 +197,10 @@
                 t.add(txtMessage, "Left", 25);
                 t.add(btnSend, "Left", 433);
                 t.add(btnDeleteHistory, "Left", 378);
+                t.add(btnDisconnect, "Left", 25);
+                btnDisconnect.Visible = true;
 
-             // Cambia el tamaño del formulario según el estado actual
+            // Cambia el tamaño del formulario según el estado actual
             if (isFormExpanded)
             {
                 this.Size = new Size(500, 300);  // Tamaño contraído
