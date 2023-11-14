@@ -23,6 +23,9 @@ El proyecto cumple con los siguientes requisitos:
 5. Uso de métodos para Administrar Hilos:
    - Se utilizo el método de sicronización de hilos Semaphore para controlar conexiones simultáneas en el servidor, permitiendo hasta 3 conexiones activas al mismo tiempo.
 
+6. Authenticacion:
+   - Se utilizo el método de authenticación RBAC, con la implementación en construcción de los permisos. 
+
 ## Uso
 
 1. Cloná o descargá el repositorio en tu máquina local.
