@@ -48,10 +48,9 @@
             this.listBox1.Location = new System.Drawing.Point(25, 23);
             this.listBox1.Name = "listBox1";
             this.listBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.listBox1.Size = new System.Drawing.Size(490, 324);
+            this.listBox1.Size = new System.Drawing.Size(490, 304);
             this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
+            
             // lblUser
             // 
             this.lblUser.AutoSize = true;
@@ -89,6 +88,7 @@
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(406, 29);
             this.txtMessage.TabIndex = 5;
+            this.txtMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMessage_KeyPress);
             // 
             // btnSend
             // 
@@ -113,9 +113,8 @@
             this.btnDeleteHistory.Click += new System.EventHandler(this.btnDeleteHistory_Click);
             // 
             // btnDisconnect
-            // 
             this.btnDisconnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDisconnect.Location = new System.Drawing.Point(25, 520);
+            this.btnDisconnect.Location = new System.Drawing.Point(413, 520);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(102, 29);
             this.btnDisconnect.TabIndex = 8;
