@@ -1,5 +1,3 @@
-# ChatApp en C# con Conexiones TCP
-
 ## Proyecto final de la materia Programación Sobre Redes
 
 Este proyecto es una aplicación de chat simple implementada en C# que utiliza conexiones TCP para permitir la comunicación en tiempo real entre un servidor y múltiples clientes. El sistema de chat incluye un servidor y una interfaz de cliente en Windows Forms. Los clientes pueden conectarse al servidor, enviar mensajes y recibir mensajes de otros clientes.
@@ -23,7 +21,7 @@ El proyecto cumple con los siguientes requisitos:
 5. Uso de métodos para Administrar Hilos:
    - Se utilizo el método de sicronización de hilos Semaphore para controlar conexiones simultáneas en el servidor, permitiendo hasta 3 conexiones activas al mismo tiempo.
 
-6. Authenticacion:
+6. Autenticacion:
    - Se utilizo el método de authenticación RBAC, con la implementación en construcción de los permisos. 
 
 ## Uso
