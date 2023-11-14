@@ -5,8 +5,9 @@
     using System.Net.Sockets;
     using System.IO;
     using Transitions;
+using System.Threading.Tasks;
 
-    namespace Client
+namespace Client
     {
         public partial class ChatForm : Form
         {
@@ -135,7 +136,8 @@
                     }
                     else
                     {
-                        MessageBox.Show("Usuario/contraseña incorrectos");
+                        MessageBox.Show("Usuario/contraseña incorrectos, intente nuevamente");
+                        Application.Exit();
                     }
 
                 }

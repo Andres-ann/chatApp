@@ -79,7 +79,6 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(257, 29);
             this.txtUser.TabIndex = 4;
-            this.txtUser.TextChanged += new System.EventHandler(this.txtUser_TextChanged);
             // 
             // txtMessage
             // 
